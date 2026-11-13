@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nemesys Scanner</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app" id="app" data-ecran="accueil">
+
+  <section class="ecran ecran-accueil" id="accueil">
+    <div class="langues langues-accueil" role="group" data-i18n-aria="langue"></div>
+    <div class="accueil-texte">
+      <div class="marque">
+        <svg class="logo" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 34V6l14 16 14-16v28" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg>
+        <span>Nemesys Studio</span>
+      </div>
+      <h1>Nemesys Scanner</h1>
+      <p class="chapo" data-i18n="chapo"></p>
+      <ul class="verifie">
+        <li><b data-i18n="v_backdoors_t"></b><span data-i18n="v_backdoors"></span></li>
+        <li><b data-i18n="v_syntaxe_t"></b><span data-i18n="v_syntaxe"></span></li>
+        <li><b data-i18n="v_manifestes_t"></b><span data-i18n="v_manifestes"></span></li>
+      </ul>
+    </div>
+
+    <div class="depot" id="depot" tabindex="0" role="button" data-i18n-aria="choisir_aria">
+      <div class="depot-grille" aria-hidden="true"></div>
+      <div class="depot-contenu">
+        <svg viewBox="0 0 48 48" class="depot-icone" aria-hidden="true"><path d="M6 14h14l4 4h18v22H6z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M24 36V24m-6 5 6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p class="depot-titre" data-i18n="depot_titre"></p>
+        <p class="depot-aide" data-i18n="depot_aide"></p>
+        <button class="bouton bouton-plein" id="choisir" data-i18n="choisir"></button>
+      </div>
+    </div>
+
+    <div class="recents" id="recents" hidden>
+      <h2 data-i18n="recents"></h2>
+      <ul id="liste-recents"></ul>
+    </div>
+  </section>
+
+  <section class="ecran ecran-analyse" id="analyse">
+    <div class="analyse-tete">
+      <h2 id="analyse-titre"></h2>
+      <p class="analyse-dossier" id="analyse-dossier"></p>
+    </div>
+    <div class="radio" id="radio-analyse"></div>
+    <div class="analyse-pied">
+      <div class="jauge"><div class="jauge-plein" id="jauge"></div></div>
+      <div class="analyse-infos">
+        <span id="analyse-compte"></span>
+        <span class="analyse-fichier" id="analyse-fichier"></span>
+      </div>
+      <button class="bouton" id="arreter" data-i18n="arreter"></button>
+    </div>
+  </section>
+
+  <section class="ecran ecran-resultats" id="resultats">
+    <header class="barre">
+      <div class="barre-marque">
+        <svg class="logo" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 34V6l14 16 14-16v28" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg>
+        <div>
+          <strong>Nemesys Scanner</strong>
+          <span id="r-dossier" class="barre-dossier"></span>
+        </div>
+      </div>
+      <div class="barre-actions">
+        <div class="langues" role="group" data-i18n-aria="langue"></div>
+        <button class="bouton" id="r-nouvelle" data-app-seulement data-i18n="nouvelle"></button>
+        <button class="bouton" id="r-relancer" data-app-seulement data-i18n="relancer"></button>
+        <button class="bouton" id="r-export-html" data-app-seulement data-i18n="exporter"></button>
+      </div>
+    </header>
+
+    <div class="resultats-corps">
+      <aside class="col-gauche">
+        <div class="verdict" id="verdict">
+          <div class="note">
+            <svg viewBox="0 0 120 120" class="note-anneau" aria-hidden="true">
+              <circle cx="60" cy="60" r="52" class="note-fond"/>
+              <circle cx="60" cy="60" r="52" class="note-trait" id="note-trait"/>
+            </svg>
+            <div class="note-texte"><span id="note-valeur">0</span><small>/100</small></div>
+          </div>
+          <div>
+            <p class="verdict-titre" id="verdict-titre"></p>
+            <p class="verdict-detail" id="verdict-detail"></p>
+          </div>
+        </div>
+
+        <div class="filtres-niveaux" id="filtres-niveaux" role="group" data-i18n-aria="filtrer"></div>
+
+        <div class="bloc-radio">
+          <div class="bloc-radio-tete">
+            <h3 data-i18n="ressources"></h3>
+            <button class="lien" id="tout-voir" data-i18n="toutes" hidden></button>
+          </div>
+          <div class="radio radio-petite" id="radio-resultats"></div>
+          <p class="radio-legende" id="radio-legende"></p>
+        </div>
+
+        <p class="stats" id="stats"></p>
+      </aside>
+
+      <main class="col-liste">
+        <div class="liste-outils">
+          <div class="onglets" role="tablist" id="onglets">
+            <button role="tab" data-cat="tout" aria-selected="true"><span data-i18n="tab_tout"></span></button>
+            <button role="tab" data-cat="backdoor"><span data-i18n="tab_backdoors"></span></button>
+            <button role="tab" data-cat="syntaxe"><span data-i18n="tab_syntaxe"></span></button>
+            <button role="tab" data-cat="manifeste"><span data-i18n="tab_manifestes"></span></button>
+          </div>
+          <input type="search" id="recherche" data-i18n-placeholder="chercher" data-i18n-aria="chercher">
+        </div>
+        <div class="liste" id="liste" tabindex="0"></div>
+      </main>
+
+      <section class="col-detail" id="detail" aria-live="polite"></section>
+    </div>
+  </section>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
